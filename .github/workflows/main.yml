@@ -78,9 +78,9 @@ jobs:
         run: |
           artifact_dir="artifacts"
           mkdir "$artifact_dir"
-          user='users/manna-harbour_miryoku'
-          rules="$user/custom_rules.mk"
-          config="$user/custom_config.h"
+          users_dir='users/manna-harbour_miryoku'
+          rules="$users_dir/custom_rules.mk"
+          config="$users_dir/custom_config.h"
 
           artifact_build_name=`echo "miryoku_qmk ${{ matrix.keyboard }}" | tr '/' '_'`
           for option in "alphas=${{ matrix.alphas }}" "nav=${{ matrix.nav }}" "clipboard=${{ matrix.clipboard }}" "layers=${{ matrix.layers }}" "mapping=${{ matrix.mapping }}"
@@ -111,10 +111,10 @@ jobs:
           echo "artifact_build_name=$artifact_build_name" >> $GITHUB_OUTPUT
           echo "artifact_dir=$artifact_dir" >> $GITHUB_OUTPUT
       - name: Build
-        run: qmk compile -kb ${{ matrix.keyboard }} -km manna-harbour_miryoku
+        run: qmk compile -kb ${{ matrix.keyboard }} -km nausicaea_miryoku
       - name: Copy firmware
         run: |
-          cp *manna-harbour_miryoku* "${{ steps.inputs.outputs.artifact_dir }}"
+          cp *nausicaea_miryoku* "${{ steps.inputs.outputs.artifact_dir }}"
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
