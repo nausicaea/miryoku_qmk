@@ -54,6 +54,7 @@ jobs:
       - name: Merge branches
         if: ${{ matrix.merge != '' && matrix.merge != 'default' }}
         run: |
+          git config --global --add safe.directory '*'
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git fetch --unshallow
@@ -80,9 +81,9 @@ jobs:
         run: |
           artifact_dir="artifacts"
           mkdir "$artifact_dir"
-          users_dir='users/manna-harbour_miryoku'
-          rules="$users_dir/custom_rules.mk"
-          config="$users_dir/custom_config.h"
+          user='users/manna-harbour_miryoku'
+          rules="$user/custom_rules.mk"
+          config="$user/custom_config.h"
 
           artifact_build_name=`echo "miryoku_qmk ${{ matrix.keyboard }}" | tr '/' '_'`
           for option in "alphas=${{ matrix.alphas }}" "nav=${{ matrix.nav }}" "clipboard=${{ matrix.clipboard }}" "layers=${{ matrix.layers }}" "mapping=${{ matrix.mapping }}"
